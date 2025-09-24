@@ -5,8 +5,8 @@ import { error } from "console";
 import { stderr, stdout } from "process";
 import { OPTIONTypes } from "../types/types";
 
-function getCodeIDE() {
-  exec("code .", (error, stdout, stderr) => {
+function getCodeIDE(name: OPTIONTypes) {
+  exec(`${name}`, (error, stdout, stderr) => {
     if (error) {
       console.log(error);
     }
@@ -15,9 +15,7 @@ function getCodeIDE() {
 
 function getTypeIDE(message: any): string[] {
   message.map((e: string) => {
-    if (e.startsWith("Code")) {
-      getCodeIDE();
-    }
+    getCodeIDE(e);
   });
 
   return message;
@@ -47,7 +45,14 @@ function main() {
   let command = question(message.getTypesCommad());
 
   if (command.startsWith("Code")) {
-    getTypeIDE(command.toString()) as unknown as string;
+    getTypeIDE("code .") as unknown as string;
+
+    const projectName = new IntroMessage("Enter Project to Create: ");
+    const project_name = question(projectName.getMessage());
+
+    if (project_name == "Webstorm") {
+      getTypeIDE("webstorm .");
+    }
 
     console.log("You Chose: " + message.getTypesCommad());
   }
