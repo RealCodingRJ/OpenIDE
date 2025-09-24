@@ -57,14 +57,14 @@ function main() {
       const project_name = question(projectName.getMessage());
 
       if (project_name == "React") {
-        getTypeIDE("npx create nano-react-app");
+        getTypeIDE("npx create nano-react-app") as unknown as string;
       }
 
       const projectIntro = new IntroMessage("Enter Project to Create: ");
       const project = question(projectIntro.getMessage());
 
       if (project_name == "React") {
-        getTypeIDE(`npx create-next-app ${project}`);
+        getTypeIDE(`npx create-next-app ${project}`) as unknown as string;
       }
     }
   }
